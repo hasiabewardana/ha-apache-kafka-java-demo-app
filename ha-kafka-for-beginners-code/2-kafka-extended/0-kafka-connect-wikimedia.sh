@@ -1,4 +1,4 @@
-connect-standalone config/connect-standalone.properties config/wikimedia.properties
+connect-standalone.sh config/connect-standalone.properties config/wikimedia.properties
 
 
 # Sample data returned in 

@@ -1,32 +1,55 @@
 # Replace "kafka-consumer-groups" 
 # by "kafka-consumer-groups.sh" or "kafka-consumer-groups.bat" based on your system # (or bin/kafka-consumer-groups.sh or bin\windows\kafka-consumer-groups.bat if you didn't setup PATH / Environment variables)
 
-# look at the documentation again
-kafka-consumer-groups
 
-# reset the offsets to the beginning of each partition
-kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my-first-application --reset-offsets --to-earliest
+############################
+### CONDUKTOR PLATFORM #####
+############################ 
+
+# look at the documentation again
+kafka-consumer-groups.sh
+
+# describe the consumer group
+kafka-consumer-groups.sh --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --describe --group my-first-application
+
+# Dry Run: reset the offsets to the beginning of each partition
+kafka-consumer-groups.sh --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --group my-first-application --reset-offsets --to-earliest --topic third_topic --dry-run
 
 # execute flag is needed
-kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my-first-application --reset-offsets --to-earliest --execute
+kafka-consumer-groups.sh --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --group my-first-application --reset-offsets --to-earliest --topic third_topic --execute
 
-# topic flag is also needed
-kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my-first-application --reset-offsets --to-earliest --execute --topic first_topic
+# describe the consumer group again
+kafka-consumer-groups.sh --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --describe --group my-first-application
 
 # consume from where the offsets have been reset
-kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first_topic --group my-first-application
+kafka-console-consumer.sh --consumer.config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic third_topic --group my-first-application
+
+# describe the group again
+kafka-consumer-groups.sh --command-config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --describe --group my-first-application
+
+
+
+############################
+#####     LOCALHOST    #####
+############################
+
+# look at the documentation again
+kafka-consumer-groups.sh
+
+# describe the consumer group
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group my-first-application
+
+# Dry Run: reset the offsets to the beginning of each partition
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my-first-application --reset-offsets --to-earliest --topic third_topic --dry-run
+
+# execute flag is needed
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my-first-application --reset-offsets --to-earliest --topic third_topic --execute
+
+# describe the consumer group again
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group my-first-application
+
+# consume from where the offsets have been reset
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic third_topic --group my-first-application
 
 # describe the group again
 kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group my-first-application
-
-# documentation for more options
-kafka-consumer-groups.sh
-
-# shift offsets by 2 (forward) as another strategy
-kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my-first-application --reset-offsets --shift-by 2 --execute --topic first_topic
-
-# shift offsets by 2 (backward) as another strategy
-kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group my-first-application --reset-offsets --shift-by -2 --execute --topic first_topic
-
-# consume again
-kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first_topic --group my-first-application

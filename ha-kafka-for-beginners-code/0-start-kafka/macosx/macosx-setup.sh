@@ -13,7 +13,7 @@ java -version
 
 
 # Download Kafka at https://kafka.apache.org/downloads
-wget https://dlcdn.apache.org/kafka/3.1.0/kafka_2.13-3.1.0.tgz
+wget https://archive.apache.org/dist/kafka/3.1.0/kafka_2.13-3.1.0.tgz
 
 # Extract Kafka
 tar -xvf kafka_2.13-3.1.0.tgz
