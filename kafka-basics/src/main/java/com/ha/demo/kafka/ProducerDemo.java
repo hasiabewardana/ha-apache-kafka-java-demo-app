@@ -10,11 +10,11 @@ import java.util.Properties;
 
 public class ProducerDemo {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProducerDemo.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(ProducerDemo.class.getName());
 
     public static void main(String[] args) {
 //        System.out.println("Hello world!");
-        logger.info("I am a kafka producer.");
+        log.info("I am a kafka producer.");
 
 //        Create producer properties.
         Properties properties = new Properties();

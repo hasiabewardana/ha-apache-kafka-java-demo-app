@@ -12,11 +12,11 @@ import java.util.Properties;
 
 public class ProducerDemoKeys {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProducerDemoKeys.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(ProducerDemoKeys.class.getName());
 
     public static void main(String[] args) {
 //        System.out.println("Hello world!");
-        logger.info("I am a kafka producer with keys.");
+        log.info("I am a kafka producer with keys.");
 
 //        Create producer properties.
         Properties properties = new Properties();
@@ -52,9 +52,9 @@ public class ProducerDemoKeys {
 //            Executes everytime if a record successfully is sent or an exception is thrown.
                     public void onCompletion(RecordMetadata metadata, Exception e) {
                         if (e == null) {
-                            logger.info("Key: " + key + " | Partition: " + metadata.partition());
+                            log.info("Key: " + key + " | Partition: " + metadata.partition());
                         } else {
-                            logger.error("Error while producing", e);
+                            log.error("Error while producing", e);
                         }
                     }
                 });

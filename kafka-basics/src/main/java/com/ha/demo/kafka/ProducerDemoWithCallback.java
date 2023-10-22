@@ -9,11 +9,11 @@ import java.util.Properties;
 
 public class ProducerDemoWithCallback {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProducerDemoWithCallback.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(ProducerDemoWithCallback.class.getName());
 
     public static void main(String[] args) {
 //        System.out.println("Hello world!");
-        logger.info("I am a kafka producer with callback.");
+        log.info("I am a kafka producer with callback.");
 
 //        Create producer properties.
         Properties properties = new Properties();
@@ -51,14 +51,14 @@ public class ProducerDemoWithCallback {
 //            Executes everytime if a record successfully is sent or an exception is thrown.
                     public void onCompletion(RecordMetadata metadata, Exception e) {
                         if (e == null) {
-                            logger.info("Received new metadata \n" +
+                            log.info("Received new metadata \n" +
                                     "Topic: " + metadata.topic() + "\n" +
                                     "Partition: " + metadata.partition() + "\n" +
                                     "Offset: " + metadata.offset() + "\n" +
                                     "Timestamp: " + metadata.timestamp()
                             );
                         } else {
-                            logger.error("Error while producing", e);
+                            log.error("Error while producing", e);
                         }
                     }
                 });
