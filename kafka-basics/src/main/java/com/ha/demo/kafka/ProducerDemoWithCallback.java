@@ -1,20 +1,19 @@
 package com.ha.demo.kafka;
 
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-public class ProducerDemo {
+public class ProducerDemoWithCallback {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProducerDemo.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(ProducerDemoWithCallback.class.getName());
 
     public static void main(String[] args) {
 //        System.out.println("Hello world!");
-        logger.info("I am a kafka producer.");
+        logger.info("I am a kafka producer with callback.");
 
 //        Create producer properties.
         Properties properties = new Properties();
@@ -32,14 +31,45 @@ public class ProducerDemo {
         properties.setProperty("key.serializer", StringSerializer.class.getName());
         properties.setProperty("value.serializer", StringSerializer.class.getName());
 
+//        Not recommend to use a small batch size like this in prod env.
+        properties.setProperty("batch.size", "400");
+
+//        Not recommended in prod env.
+//        properties.setProperty("partitioner.class", RoundRobinPartitioner.class.getName());
+
 //        Create the producer.
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
+        for (int j = 0; j < 10; j++) {
+            for (int i = 0; i < 30; i++) {
 //        Create a producer record.
-        ProducerRecord<String, String> producerRecord = new ProducerRecord<>("demo_java", "hello world!");
+                ProducerRecord<String, String> producerRecord = new ProducerRecord<>("demo_java", "hello world!");
 
 //        Send data. (asynchronous)
-        producer.send(producerRecord);
+                producer.send(producerRecord, new Callback() {
+                    @Override
+//            Executes everytime if a record successfully is sent or an exception is thrown.
+                    public void onCompletion(RecordMetadata metadata, Exception e) {
+                        if (e == null) {
+                            logger.info("Received new metadata \n" +
+                                    "Topic: " + metadata.topic() + "\n" +
+                                    "Partition: " + metadata.partition() + "\n" +
+                                    "Offset: " + metadata.offset() + "\n" +
+                                    "Timestamp: " + metadata.timestamp()
+                            );
+                        } else {
+                            logger.error("Error while producing", e);
+                        }
+                    }
+                });
+            }
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
 //        Flush producer. Tell the producer to send all data and block until done (synchronous). No need to call in prod env.
         producer.flush();
