@@ -1,19 +1,22 @@
 package com.ha.demo.kafka;
 
-import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.clients.producer.Callback;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-public class ProducerDemoWithCallback {
+public class ProducerDemoKeys {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProducerDemoWithCallback.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(ProducerDemoKeys.class.getName());
 
     public static void main(String[] args) {
 //        System.out.println("Hello world!");
-        logger.info("I am a kafka producer with callback.");
+        logger.info("I am a kafka producer with keys.");
 
 //        Create producer properties.
         Properties properties = new Properties();
@@ -31,19 +34,17 @@ public class ProducerDemoWithCallback {
         properties.setProperty("key.serializer", StringSerializer.class.getName());
         properties.setProperty("value.serializer", StringSerializer.class.getName());
 
-//        Not recommend to use a small batch size like this in prod env.
-        properties.setProperty("batch.size", "400");
-
-//        Not recommended in prod env.
-//        properties.setProperty("partitioner.class", RoundRobinPartitioner.class.getName());
-
 //        Create the producer.
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
-        for (int j = 0; j < 10; j++) {
-            for (int i = 0; i < 30; i++) {
+        for (int j = 0; j < 2; j++) {
+            for (int i = 0; i < 10; i++) {
+                String topic = "demo_java";
+                String key = "id " + i;
+                String value = "hello world " + i;
+
 //        Create a producer record.
-                ProducerRecord<String, String> producerRecord = new ProducerRecord<>("demo_java", "hello world! " + i);
+                ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topic, key, value);
 
 //        Send data. (asynchronous)
                 producer.send(producerRecord, new Callback() {
@@ -51,12 +52,7 @@ public class ProducerDemoWithCallback {
 //            Executes everytime if a record successfully is sent or an exception is thrown.
                     public void onCompletion(RecordMetadata metadata, Exception e) {
                         if (e == null) {
-                            logger.info("Received new metadata \n" +
-                                    "Topic: " + metadata.topic() + "\n" +
-                                    "Partition: " + metadata.partition() + "\n" +
-                                    "Offset: " + metadata.offset() + "\n" +
-                                    "Timestamp: " + metadata.timestamp()
-                            );
+                            logger.info("Key: " + key + " | Partition: " + metadata.partition());
                         } else {
                             logger.error("Error while producing", e);
                         }
