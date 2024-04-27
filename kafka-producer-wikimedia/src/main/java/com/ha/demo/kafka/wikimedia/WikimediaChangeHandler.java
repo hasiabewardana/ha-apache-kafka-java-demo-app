@@ -1,13 +1,13 @@
 package com.ha.demo.kafka.wikimedia;
 
+import com.launchdarkly.eventsource.EventHandler;
 import com.launchdarkly.eventsource.MessageEvent;
-import com.launchdarkly.eventsource.background.BackgroundEventHandler;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WikimediaChangeHandler implements BackgroundEventHandler {
+public class WikimediaChangeHandler implements EventHandler {
     private final Logger log = LoggerFactory.getLogger(WikimediaChangeHandler.class.getSimpleName());
     KafkaProducer<String, String> producer;
     String topic;
