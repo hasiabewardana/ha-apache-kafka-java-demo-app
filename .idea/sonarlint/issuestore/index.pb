@@ -70,5 +70,7 @@ z
 Jkafka-basics/src/main/java/com/ha/demo/kafka/ProducerDemoWithCallback.java,f\6\f68a5e7849849b8d9962deaa3ee37c80f435d2b3
 n
 >kafka-basics/src/main/java/com/ha/demo/kafka/ProducerDemo.java,2\9\293d4618bd4d4692ebbb6b165011fd0b30ed0ee9
-I
-kafka-basics/build.gradle,e\3\e3654e87ff6ebd41529074e5b68a7b019084903f
+„
+Tkafka-producer-wikimedia/src/main/java/com/ha/demo/kafka/WikimediaChangeHandler.java,3\6\36be2d11e5a05514f15368a5f960bec79eab64a1
+†
+Vkafka-producer-wikimedia/src/main/java/com/ha/demo/kafka/WikimediaChangesProducer.java,e\a\ea0a0cecc2b54bdc4a0e27f0f4a1be7e0eae1d64

@@ -1,4 +1,4 @@
-package com.ha.demo.kafka;
+package com.ha.demo.kafka.wikimedia;
 
 import com.launchdarkly.eventsource.ConnectStrategy;
 import com.launchdarkly.eventsource.EventSource;

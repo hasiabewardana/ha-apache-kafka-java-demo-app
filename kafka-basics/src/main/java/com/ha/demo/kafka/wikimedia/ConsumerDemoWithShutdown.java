@@ -1,8 +1,7 @@
-package com.ha.demo.kafka;
+package com.ha.demo.kafka.wikimedia;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.CooperativeStickyAssignor;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.errors.WakeupException;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -13,9 +12,9 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Properties;
 
-public class ConsumerDemoCooperative {
+public class ConsumerDemoWithShutdown {
 
-    private static final Logger log = LoggerFactory.getLogger(ConsumerDemoCooperative.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(ConsumerDemoWithShutdown.class.getName());
 
     public static void main(String[] args) {
 //        System.out.println("Hello world!");
@@ -41,8 +40,6 @@ public class ConsumerDemoCooperative {
         properties.setProperty("value.deserializer", StringDeserializer.class.getName());
         properties.setProperty("group.id", groupId);
         properties.setProperty("auto.offset.reset", "earliest");
-        properties.setProperty("partition.assignment.strategy", CooperativeStickyAssignor.class.getName());
-//        properties.setProperty("group.instance.id", ""); // Strategy for static assignment.
 
 //        Create the consumer.
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);

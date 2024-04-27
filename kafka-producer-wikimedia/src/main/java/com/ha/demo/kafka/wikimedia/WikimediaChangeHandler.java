@@ -1,4 +1,4 @@
-package com.ha.demo.kafka;
+package com.ha.demo.kafka.wikimedia;
 
 import com.launchdarkly.eventsource.MessageEvent;
 import com.launchdarkly.eventsource.background.BackgroundEventHandler;

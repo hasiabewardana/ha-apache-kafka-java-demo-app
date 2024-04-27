@@ -1,4 +1,4 @@
-package com.ha.demo.kafka;
+package com.ha.demo.kafka.wikimedia;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
