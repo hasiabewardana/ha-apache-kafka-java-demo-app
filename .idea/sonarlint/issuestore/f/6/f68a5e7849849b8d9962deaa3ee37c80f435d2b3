@@ -1,0 +1,10 @@
+
+g	java:S112F"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ñ”Ö³µ1
+E
+java:S16041"(Make this anonymous inner class a lambda( ­Ç÷8ó”Ö³µ1
+W	java:S125"<This block of commented-out lines of code should be removed.(ï­ãR8•Ö³µ1
+X	java:S125"<This block of commented-out lines of code should be removed.(Óà¡ï8¸üó¤æ1
+c
+java:S34576"AFormat specifiers should be used instead of string concatenation.(íö‚Ìÿÿÿÿÿ8öÔíµµ1
+{
+java:S2142E"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8˜•Ö³µ1
