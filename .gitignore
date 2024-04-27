@@ -9,6 +9,7 @@
 # Build directories
 build/
 bin/
+out/
 
 # Dependency directories
 lib/
